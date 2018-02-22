@@ -1,3 +1,28 @@
-<p>
-  thread works!
-</p>
+<section class="thread-list">
+	<header class="thread-list__header">
+		<h3>Thread List</h3>
+	</header>
+	<content>
+		<div *ngIf="dbComments.length > 0">
+			<div class="thread-item" *ngFor="let item of dbComments">
+				<div>
+					<header>{{item[0].title}}</header>
+					<content>
+						{{item[0].desc}}
+					</content>
+					<footer>
+						<p>
+							Created by {{item[0].createdBy}} at {{item[0].createdAt}}
+						</p>
+					</footer>
+				</div>
+			</div>
+		</div>
+		<div *ngIf="dbComments.length > 0">
+			No Data
+		</div>
+	</content>
+	<footer>
+		
+	</footer>
+</section>
