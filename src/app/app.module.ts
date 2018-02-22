@@ -1,16 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
 import { AppComponent } from './app.component';
+
+//library
+import "materialize-css";
+import { MaterializeModule } from 'angular2-materialize';
+import { ThreadListComponent } from './thread-list/thread-list.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ThreadListComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    MaterializeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
