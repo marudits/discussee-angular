@@ -20,7 +20,7 @@
       "prefix": "app",
       "styles": [
         "styles.css",
-         "../node_modules/materialize-css/dist/css/materialize.css"
+        "../node_modules/materialize-css/dist/css/materialize.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
@@ -60,6 +60,7 @@
   },
   "defaults": {
     "styleExt": "css",
-    "component": {}
+    "component": {
+    }
   }
 }

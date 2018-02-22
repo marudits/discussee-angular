@@ -6,17 +6,20 @@ import { AppComponent } from './app.component';
 //library
 import "materialize-css";
 import { MaterializeModule } from 'angular2-materialize';
-import { ThreadListComponent } from './thread-list/thread-list.component';
 
+//module
+import { AppRoutingModule } from '../assets/routing';
+import { ThreadModule } from '../pages/thread/thread.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ThreadListComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    MaterializeModule
+    MaterializeModule,
+    ThreadModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
