@@ -33,4 +33,9 @@ export class ThreadItemComponent implements OnInit {
 		this.router.navigateByUrl(url);
 	}
 
+	deleteThread(threadId){
+		this.db.object('todos/' + threadId)
+  			.remove();
+	}
+
 }

@@ -2,4 +2,10 @@
   &__item {
     padding: 12px;
   }
+
+  &__footer {
+    .fixed-action-btn {
+      bottom: 80px;
+    }
+  }
 }

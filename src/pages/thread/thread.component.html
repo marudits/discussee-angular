@@ -2,15 +2,11 @@
 	<div class="thread-list__header">
 		<h3>
 			Thread List
-			&nbsp;
-			<button class="btn-floating waves-effect waves-light green" (click)="goto('/add')">
-				<i class="material-icons">add</i>
-			</button>
 		</h3>
 	</div>
-	<div>
+	<div class="thread-list__content">
 		<div *ngIf="dbComments && dbComments.length > 0" class="row">
-			<div *ngFor="let item of dbComments;" class="thread-list__item col s12 m4">
+			<div *ngFor="let item of dbComments;" class="thread-list__item col s12 m6 l4">
 				<thread-item [thread]="item"></thread-item>
 			</div>
 		</div>
@@ -18,7 +14,11 @@
 			No Data
 		</div>
 	</div>
-	<div>
-		
+	<div class="thread-list__footer">
+		<div class="fixed-action-btn">
+			<a class="btn-floating btn-large green" (click)="goto('/add')">
+				<i class="large material-icons">add</i>
+			</a>
+	  	</div>
 	</div>
 </div>

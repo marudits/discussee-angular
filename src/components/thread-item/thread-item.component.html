@@ -19,7 +19,7 @@
 		<a class="btn-floating btn-edit halfway-fab waves-effect waves-light yellow" (click)="goto('/update/' + thread.key)">
 			<i class="material-icons">edit</i>
 		</a>
-		<a class="btn-floating btn-delete halfway-fab waves-effect waves-light red">
+		<a class="btn-floating btn-delete halfway-fab waves-effect waves-light red" (click)="deleteThread(thread.key)">
 			<i class="material-icons">delete</i>
 		</a>
 	</div>

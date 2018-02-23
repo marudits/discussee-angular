@@ -12,7 +12,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class ThreadDetailComponent implements OnInit {
 
-	thread: Object;
+	thread;
 	commentList;
 	threadId: String;
 	form = {
