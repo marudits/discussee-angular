@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 //components
 import { ThreadDetailComponent } from '../../components/thread-detail/thread-detail.component';
 import { ThreadFormComponent } from '../../components/thread-form/thread-form.component';
+import { ThreadItemComponent } from '../../components/thread-item/thread-item.component';
 
 //library
 import { MaterializeModule } from "angular2-materialize";
@@ -36,12 +38,14 @@ export const routes = [
   imports: [
     CommonModule,
     MaterializeModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FormsModule
   ],
   declarations: [
   	ThreadComponent,
   	ThreadDetailComponent,
-  	ThreadFormComponent
+  	ThreadFormComponent,
+  	ThreadItemComponent
   ],
   providers: [],
   exports: [RouterModule]

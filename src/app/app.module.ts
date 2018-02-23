@@ -7,9 +7,11 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 
 //library
-import "materialize-css";
+// import "materialize-css";
 import { MaterializeModule } from 'angular2-materialize';
-import { AngularFireLite } from 'angularfire-lite';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 //module
 import { AppRoutingModule } from '../assets/routing';
@@ -24,7 +26,9 @@ import { ThreadModule } from '../pages/thread/thread.module';
     MaterializeModule,
     ThreadModule,
     AppRoutingModule,
-    AngularFireLite.forRoot(environment.LIBRARY.FIREBASE.CONFIG)
+    AngularFireModule.initializeApp(environment.LIBRARY.FIREBASE.CONFIG),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

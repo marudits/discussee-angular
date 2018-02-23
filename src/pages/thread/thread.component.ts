@@ -1,27 +1,36 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireLiteAuth, AngularFireLiteDatabase, AngularFireLiteFirestore } from 'angularfire-lite';
+import { Router } from '@angular/router';
+
+//library
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
 	selector: 'app-thread',
 	templateUrl: './thread.component.html',
-	styleUrls: ['./thread.component.css']
+	styleUrls: ['./thread.component.scss']
 })
 
 export class ThreadComponent implements OnInit {
 	
+	dbComments;
+
 	constructor(
-		private db: AngularFireLiteDatabase,
-		private auth: AngularFireLiteAuth,
-		private firestore: AngularFireLiteFirestore
+		private db: AngularFireDatabase,
+		private auth: AngularFireAuth,
+    private router: Router
   	) { }
 
-  	dbComments
-
   	ngOnInit() {
-  		this.db.read('todos').subscribe((data) => {
-  			console.log('data: ', data);
-  			this.dbComments = data;
+  		this.db.list('todos').snapshotChanges().map(actions => {
+  			return actions.map(action => ({ key: action.key, ...action.payload.val() }));
+  		}).subscribe(items => {
+  			this.dbComments = items;
   		});
   	}
+
+    goto(url){
+      this.router.navigate([url]);
+    }
 
 }

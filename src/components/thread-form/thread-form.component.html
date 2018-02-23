@@ -1,3 +1,22 @@
-<p>
-  thread-form works!
-</p>
+<section>
+	<header>
+		<h4>Thread Form</h4>
+	</header>
+	<content>
+		<form class="row col s12 m6">
+			<div class="input-field col s12">
+				<input id="thread-title" name="thread-title" type="text" class="validate" [(ngModel)]="form.title">
+				<label for="thread-title">Title</label>
+			</div>
+			<div class="input-field col s12">
+				<textarea id="thread-desc" name="thread-desc" class="materialize-textarea" [(ngModel)]="form.desc"></textarea>
+				<label for="thread-desc">Description</label>
+			</div>
+			<button class="waves-effect waves-light btn" (click)="addThread()">
+				<i class="material-icons left">cloud</i>
+				Submit
+			</button>
+		</form>
+	</content>
+	<footer></footer>
+</section>

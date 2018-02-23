@@ -1,3 +1,54 @@
-<p>
-  thread-detail works!
-</p>
+<section>
+	<header>
+		<h5>Thread {{thread ? thread.key : ''}}</h5>
+	</header>
+	<content>
+		<div *ngIf="thread">
+			<header>
+				<p>Created by {{thread.createdBy}} at {{thread.createdAt}}</p>
+				<p>Last updated at {{thread.updatedAt}}</p>
+				<h5>{{thread.title}}</h5>
+			</header>
+			<content>
+				{{thread.desc}}
+			</content>
+			<footer class="comment">
+				<div *ngIf="commentList && commentList.length > 0">
+					<h6>{{commentList.length}} Comments</h6>
+					<div class="comment-list">
+						<div *ngFor="let item of commentList">
+							<p>{{item.name}}</p>
+							<p>{{item.text}}</p>
+						</div>	
+					</div>
+					
+				</div>
+				<div *ngIf="commentList && commentList.length === 0">
+					<h6>No Comment</h6>
+				</div>
+				<div *ngIf="thread.isDone">
+					Creator has closed this thread
+				</div>
+				<div *ngIf="!thread.isDone" class="comment-form">
+					<form class="row col s12 m6">
+						<div class="input-field col s12">
+							<textarea id="comment-text" name="comment-text"class="materialize-textarea" [(ngModel)]="form.text"></textarea>
+							<label for="comment-text">Comment</label>
+						</div>
+						<button class="waves-effect waves-light btn" (click)="addComment()">
+							<i class="material-icons left">cloud</i>
+							Comment
+						</button>
+					</form>
+				</div>
+			</footer>
+		</div>
+	</content>
+	<footer>
+		
+	</footer>
+</section>
+
+<script type="text/javascript">
+	$('#comment-text').trigger('autoresize');
+</script>

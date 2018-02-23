@@ -1,28 +1,24 @@
-<section class="thread-list">
-	<header class="thread-list__header">
-		<h3>Thread List</h3>
-	</header>
-	<content>
-		<div *ngIf="dbComments.length > 0">
-			<div class="thread-item" *ngFor="let item of dbComments">
-				<div>
-					<header>{{item[0].title}}</header>
-					<content>
-						{{item[0].desc}}
-					</content>
-					<footer>
-						<p>
-							Created by {{item[0].createdBy}} at {{item[0].createdAt}}
-						</p>
-					</footer>
-				</div>
+<div class="thread-list">
+	<div class="thread-list__header">
+		<h3>
+			Thread List
+			&nbsp;
+			<button class="btn-floating waves-effect waves-light green" (click)="goto('/add')">
+				<i class="material-icons">add</i>
+			</button>
+		</h3>
+	</div>
+	<div>
+		<div *ngIf="dbComments && dbComments.length > 0" class="row">
+			<div *ngFor="let item of dbComments;" class="thread-list__item col s12 m4">
+				<thread-item [thread]="item"></thread-item>
 			</div>
 		</div>
-		<div *ngIf="dbComments.length > 0">
+		<div *ngIf="!dbComments || dbComments.length === 0" class="row">
 			No Data
 		</div>
-	</content>
-	<footer>
+	</div>
+	<div>
 		
-	</footer>
-</section>
+	</div>
+</div>

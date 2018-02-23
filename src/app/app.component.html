@@ -2,7 +2,7 @@
   <div class="navbar-fixed">
     <nav>
       <div class="nav-wrapper">
-        <a href="#" class="brand-logo">
+        <a href="#" class="brand-logo" (click)="goto('/')">
           Discussee
         </a>
         <ul id="nav-mobile" class="right">
@@ -13,7 +13,7 @@
       </div>
     </nav>
   </div>
-  <main>
+  <main class="container">
     <div>
       <router-outlet></router-outlet>
     </div>
