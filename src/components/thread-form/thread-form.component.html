@@ -5,17 +5,17 @@
 	<content>
 		<form class="row col s12 m6">
 			<div class="input-field col s12">
-				<input id="thread-title" name="thread-title" type="text" class="validate {{validation.title.error}}" [(ngModel)]="form.title">
+				<input id="thread-title" name="thread-title" type="text" class="validate {{validation.title.status}}" [(ngModel)]="form.title">
 				<label for="thread-title">Title</label>
 			</div>
-			<div class="message-error" *ngIf="validation.title.error">
+			<div class="message-error" *ngIf="validation.title.status === 'invalid'">
 				{{validation.title.message}}
 			</div>
 			<div class="input-field col s12">
-				<textarea id="thread-desc" name="thread-desc" class="validate {{validation.desc.error}} materialize-textarea" [(ngModel)]="form.desc"></textarea>
+				<textarea id="thread-desc" name="thread-desc" class="validate {{validation.desc.status}} materialize-textarea" [(ngModel)]="form.desc"></textarea>
 				<label for="thread-desc">Description</label>
 			</div>
-			<div class="message-error" *ngIf="validation.desc.error">
+			<div class="message-error" *ngIf="validation.desc.status === 'invalid'">
 				{{validation.desc.message}}
 			</div>
 			<div class="btn-action">

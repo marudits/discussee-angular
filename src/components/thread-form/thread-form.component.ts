@@ -27,11 +27,11 @@ export class ThreadFormComponent implements OnInit {
 	thread;
   validation = {
     title: {
-      error: null,
+      status: null,
       message: null
     },
     desc: {
-      error: null,
+      status: null,
       message: null
     }
   }
@@ -105,7 +105,7 @@ export class ThreadFormComponent implements OnInit {
 
   resetValidation(){
     for(let key in this.validation){
-      this.validation[key].error = null;
+      this.validation[key].status = null;
       this.validation[key].message = null;
     }
   }
@@ -132,26 +132,26 @@ export class ThreadFormComponent implements OnInit {
 
     //validate title
     if(!title || title.trim().length <= 0){
-      this.validation.title.error = 'invalid';
+      this.validation.title.status = 'invalid';
       this.validation.title.message = LABEL.VALIDATION.COMMON.MESSAGE.REQUIRED;
       return false;
     } else {
-      this.validation.title.error = 'valid';
+      this.validation.title.status = 'valid';
       this.validation.title.message = null;
     }
 
     //validate desc
     if(!desc || desc.trim().length <= 0){
-      this.validation.desc.error = 'invalid';
+      this.validation.desc.status = 'invalid';
       this.validation.desc.message = LABEL.VALIDATION.COMMON.MESSAGE.NOT_EMPTY;
       return false;
     } else if(desc.trim().length < CONFIG.VALIDATION.THREAD.DESC.MIN_LENGTH){
       let diff = CONFIG.VALIDATION.THREAD.DESC.MIN_LENGTH - desc.trim().length;
-      this.validation.desc.error = 'invalid';
+      this.validation.desc.status = 'invalid';
       this.validation.desc.message = `${LABEL.VALIDATION.THREAD.DESC.MIN_LENGTH}. ${diff} characters remain.`;
       return false;
     } else {
-      this.validation.desc.error = 'valid';
+      this.validation.desc.status = 'valid';
       this.validation.desc.message = null;
     }
 

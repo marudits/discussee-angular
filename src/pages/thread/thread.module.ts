@@ -38,7 +38,7 @@ export const routes = [
   imports: [
     CommonModule,
     MaterializeModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forChild(routes),
     FormsModule
   ],
   declarations: [
