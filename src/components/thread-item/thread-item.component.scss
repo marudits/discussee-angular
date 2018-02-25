@@ -1,0 +1,67 @@
+.thread-item {
+	height: 325px;
+	border: 1px solid grey;
+	border-radius: 3px;
+	padding: 12px !important;
+	background: #fff;
+
+	&:hover {
+		transform: scale(1.02);
+		box-shadow: 3px 3px lightgrey;
+	}
+
+	.card-image {
+		height: 90%;
+		border-bottom: 1px solid #ee6d72;
+
+		.btn {
+			&-delete {
+				right: 8px;
+			}
+
+			&-edit {
+				right: 56px;
+			}
+		}
+	}
+
+	&__header {
+		color: #ee6e73;
+		cursor: pointer;
+		height: 30%;
+		overflow: hidden;
+
+		h5 {
+			height: 50%;
+			overflow: hidden;
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+		
+		.switch {
+			height: 50%;
+			.lever {
+				margin: 0;
+			}
+		}
+	}
+	
+	&__content {
+		text-indent: 2em;
+		text-align: justify;
+		height: 60%;
+		overflow: hidden;
+		
+	}
+
+	&__footer {
+		height: 10%;
+		font-size: 0.75em
+	}
+
+	.card-content {
+		padding: 3px 0 0 0;
+		font-size: 0.85em;
+	}
+}
+	

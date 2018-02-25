@@ -1,0 +1,29 @@
+<div class="card thread-item">
+	<div class="card-image">
+		<div class="thread-item__header">
+			<h5 (click)="goto('/detail/' + thread.key)">{{thread.title}}</h5>
+			<div class="switch">
+				<label>
+					<input disabled="{{thread.isDone ? 'disabled' : ''}}" type="checkbox">
+			      	<span class="lever"></span>
+			      	{{thread.isDone ? 'Closed' : 'Opened'}}
+			    </label>
+			  </div>	
+		</div>
+		<div class="thread-item__content">
+			{{thread.desc.slice(0, 200) + '...'}}
+		</div>
+		<div class="thread-item__footer">
+			Created by <b>{{thread.createdBy}}</b> at <em>{{calculateDiffTime(thread.createdAt)}}</em>
+		</div>
+		<a class="btn-floating btn-edit halfway-fab waves-effect waves-light yellow" (click)="goto('/update/' + thread.key)">
+			<i class="material-icons">edit</i>
+		</a>
+		<a class="btn-floating btn-delete halfway-fab waves-effect waves-light red" (click)="deleteThread(thread.key)">
+			<i class="material-icons">delete</i>
+		</a>
+	</div>
+	<div class="card-content">
+		<b>10</b> Comments
+	</div>
+</div>

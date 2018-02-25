@@ -1,0 +1,11 @@
+.thread-list {
+  &__item {
+    padding: 12px;
+  }
+
+  &__footer {
+    .fixed-action-btn {
+      bottom: 80px;
+    }
+  }
+}
