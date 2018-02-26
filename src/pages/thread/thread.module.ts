@@ -14,15 +14,20 @@ import { MaterializeModule } from "angular2-materialize";
 //pages
 import { ThreadComponent } from './thread.component';
 
+//utils
+import { AuthGuardService } from '../../utils/service/auth-guard.service';
+
 export const routes = [
 	{
 		path: '',
 		component: ThreadComponent,
-		pathMatch: 'full'
+		pathMatch: 'full',
+		canActivate: [AuthGuardService]
 	},
 	{
 		path: 'add',
-		component: ThreadFormComponent
+		component: ThreadFormComponent,
+		canActivate: [AuthGuardService]
 	},
 	{
 		path: 'update/:id',
@@ -30,7 +35,8 @@ export const routes = [
 	},
 	{
 		path: 'detail/:id',
-		component: ThreadDetailComponent
+		component: ThreadDetailComponent,
+		canActivate: [AuthGuardService]
 	}
 ]
 
@@ -47,7 +53,9 @@ export const routes = [
   	ThreadFormComponent,
   	ThreadItemComponent
   ],
-  providers: [],
+  providers: [
+  	AuthGuardService
+  ],
   exports: [RouterModule]
 })
 
