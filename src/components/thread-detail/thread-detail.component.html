@@ -16,9 +16,15 @@
 				<div *ngIf="commentList && commentList.length > 0">
 					<h6>{{commentList.length}} Comments</h6>
 					<div class="comment-list">
-						<div *ngFor="let item of commentList">
-							<p>{{item.name}}</p>
-							<p>{{item.text}}</p>
+						<div *ngFor="let item of commentList" class="comment-item">
+							<div class="comment-item__{{isOwnComment(item.name) ? 'own' : 'other'}}">
+								<div class="item-content">
+									<p class="item-content__name">{{item.name}}</p>
+									<p class="item-content__text">{{item.text}}</p>
+									<p class="item-content__date">{{calculateDiffTime(item.timestamp)}}</p>	
+								</div>
+							</div>
+							
 						</div>	
 					</div>
 					
@@ -32,7 +38,7 @@
 				<div *ngIf="!thread.isDone" class="comment-form">
 					<form class="row col s12 m6">
 						<div class="input-field col s12">
-							<textarea id="comment-text" name="comment-text"class="materialize-textarea" [(ngModel)]="form.text"></textarea>
+							<textarea id="comment-text" name="comment-text" class="materialize-textarea" [(ngModel)]="form.text"></textarea>
 							<label for="comment-text">Comment</label>
 						</div>
 						<button class="waves-effect waves-light btn" (click)="addComment()">

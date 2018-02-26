@@ -5,6 +5,10 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 
+//utils
+import { FirebaseService } from '../../utils/service/firebase.service';
+import { getUsernameFromEmail, calculateDiffTime } from '../../utils/helpers/stringManipulation';
+
 @Component({
   selector: 'app-thread-detail',
   templateUrl: './thread-detail.component.html',
@@ -19,11 +23,13 @@ export class ThreadDetailComponent implements OnInit {
 		text: null
 	};
 
+  calculateDiffTime = calculateDiffTime;
 
 	constructor(
   		private activatedRoute: ActivatedRoute,
   		private db: AngularFireDatabase,
-		  private auth: AngularFireAuth
+		  private auth: AngularFireAuth,
+      private fs: FirebaseService
   	) { }
 
   	ngOnInit() {
@@ -52,11 +58,25 @@ export class ThreadDetailComponent implements OnInit {
   	}
 
   	addComment(){
+      const CURRENT_USER = this.fs.getCurrentUser();
+
   		this.db.list('comments/' + this.threadId).push({
-  			name: 'Anonymous',
+  			name: getUsernameFromEmail(CURRENT_USER.email),
   			text: this.form.text,
   			createdAt: Date.now()
   		})
   	}
+
+    isOwnComment(name){
+      return getUsernameFromEmail(this.fs.getCurrentUser().email) === name
+    }
+
+    resetForm(){
+      this.form.text = null;
+    }
+
+    scrollComment(){
+
+    }
 
 }
