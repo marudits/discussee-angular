@@ -1,7 +1,10 @@
 .comment {
 	&-list {
-		height: 200px;
+		height: 300px;
 		overflow: scroll;
+    border-bottom: 1px solid lightgrey;
+    border-top: 1px solid lightgrey;
+    margin: 12px 0px;
 	}
 
   &-item {
@@ -40,6 +43,7 @@
 
       .item-content{
         margin-left: 40%;
+        margin-right: 15px;
         width: 100%;
         text-align: right;
 
@@ -56,6 +60,13 @@
       float: left;
       width: 100%;
       margin-bottom: 15px;
+      
+      i {
+        font-size: 2.8em;
+        color: #80cbc4;
+        margin-right: 3px;
+        padding-top: 21px;
+      }
 
       .item-content{
         margin-right: 40%;

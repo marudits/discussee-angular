@@ -3,24 +3,27 @@ import { Router } from '@angular/router';
 
 //utils
 import { FirebaseService } from '../../utils/service/firebase.service';
+import { getUsernameFromEmail } from '../../utils/helpers/stringManipulation';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 
 export class HeaderComponent implements OnInit {
 	title: String = 'Discussee';
-	user: any = null;
+	user: any;
 
+	getUsernameFromEmail = getUsernameFromEmail;
+	
 	constructor(
 		private router: Router,
 		private fs: FirebaseService
 		) { }
 
 	ngOnInit() {
-
+		this.user = this.fs.getCurrentUser();
 	}
 
 	isAuthenticated(){
@@ -33,6 +36,7 @@ export class HeaderComponent implements OnInit {
 
 	setUser(user){
 		this.user = user;
+		console.log('setUser: ', this.user);
 	}
 
 	signOut(){

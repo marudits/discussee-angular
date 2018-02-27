@@ -22,6 +22,8 @@ export class ThreadDetailComponent implements OnInit {
 	form = {
 		text: null
 	};
+  isTypingTimer = null;
+  isTypingInfo = null;
 
   calculateDiffTime = calculateDiffTime;
 
@@ -39,6 +41,7 @@ export class ThreadDetailComponent implements OnInit {
   			this.threadId = params.id;
       	});
   		
+      this.formatIsTypingInfo();
   	}
 
   	setThreadItem(id){
@@ -57,6 +60,60 @@ export class ThreadDetailComponent implements OnInit {
   		});
   	}
 
+    formatIsTypingInfo(){
+      this.db.list('isTyping/' + this.threadId).snapshotChanges().map(actions => {
+        return actions ? actions.map(action => ({ key: action.key, ...action.payload.val() })) : [];
+      }).subscribe(items => {
+        if(items && items.length > 0){
+          const CURRENT_USERNAME = getUsernameFromEmail(this.fs.getCurrentUser().email)
+          let commentList = items;
+          
+          let isCurrentUserTyping = commentList.filter(x => (x.key === CURRENT_USERNAME)).length === 1,
+            otherUserTyping = commentList.filter(x => (x.key !== CURRENT_USERNAME)),
+            totalIsTyping = commentList.length;
+
+          if(commentList.length === 1){
+            this.isTypingInfo = `${isCurrentUserTyping ? 'You are' : commentList[0].key + ' is'} typing...`
+          } else {
+            if(isCurrentUserTyping){
+              this.isTypingInfo = `You and ${otherUserTyping.length > 1 ? otherUserTyping.length + ' people' : otherUserTyping[0].key} are typing...`
+            } else {
+              this.isTypingInfo = `${otherUserTyping[0].key} and ${otherUserTyping.length > 2 ? otherUserTyping.length + ' people' : otherUserTyping[1].key} are typing...`
+            }
+          }
+        } else {
+          this.isTypingInfo = null;
+        }
+      })
+    }
+
+    handleChange(e){
+      if(e.target.value){
+        this.resetIsTypingTimer(this.thread.key);
+
+        this.fs.isTypingComment(this.thread.key, e.target.value)
+      }
+    }
+
+    resetIsTypingTimer(id){
+      if(this.isTypingTimer){
+        clearTimeout(this.isTypingTimer)
+        this.isTypingTimer = null;
+      }
+
+      let that = this;
+      this.isTypingTimer = setTimeout(() => {
+        that.stoppedTyping(id)
+      }, 5000)
+    }
+
+    stoppedTyping(id){
+      if(this.isTypingTimer){
+        this.isTypingTimer = null;
+        this.fs.isFinishedTypingComment(id);
+      }
+    }
+
   	addComment(){
       const CURRENT_USER = this.fs.getCurrentUser();
 
@@ -64,7 +121,9 @@ export class ThreadDetailComponent implements OnInit {
   			name: getUsernameFromEmail(CURRENT_USER.email),
   			text: this.form.text,
   			createdAt: Date.now()
-  		})
+  		});
+
+      this.resetForm();
   	}
 
     isOwnComment(name){

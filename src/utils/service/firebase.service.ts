@@ -32,7 +32,7 @@ export class FirebaseService {
     }
 
   	getCurrentUser(){
-  		return this.CURRENT_USER;
+  		return this.ss.getData('CURRENT_USER');
   	}
 
   	getThreadItem(threadId) {
@@ -48,6 +48,18 @@ export class FirebaseService {
 
     isAuthenticated(){
       return this.ss.getData('CURRENT_USER');
+    }
+
+    isTypingComment(id, text){
+      let CURRENT_USER = this.ss.getData('CURRENT_USER');
+      this.fireDb.object('isTyping/' + id + '/' + getUsernameFromEmail(CURRENT_USER.email))
+        .set(text)
+    }
+
+    isFinishedTypingComment(id){
+      let CURRENT_USER = this.ss.getData('CURRENT_USER');
+      this.fireDb.object('isTyping/' + id + '/' + getUsernameFromEmail(CURRENT_USER.email))
+        .remove()
     }
 
   	isOwnerThread(threadId){
