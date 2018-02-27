@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+//utils
+import { FirebaseService } from '../../utils/service/firebase.service';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -12,16 +15,28 @@ export class HeaderComponent implements OnInit {
 	user: any = null;
 
 	constructor(
-		private router: Router) { }
+		private router: Router,
+		private fs: FirebaseService
+		) { }
 
 	ngOnInit() {
 
 	}
 
+	isAuthenticated(){
+		return this.fs.isAuthenticated();
+	}
+
+	goto(url){
+		this.router.navigate([url])
+	}
+
 	setUser(user){
-		console.log('this.user: ', this.user, '| user: ', user, '| email: ', user.email);
 		this.user = user;
-		console.log('new: ', this.user);
+	}
+
+	signOut(){
+		this.fs.signOut();
 	}
 
 }

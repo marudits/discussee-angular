@@ -19,6 +19,7 @@ import { AuthModule } from '../pages/auth/auth.module';
 
 //utils
 import { FirebaseService } from '../utils/service/firebase.service';
+import { SessionStorageService } from '../utils/service/session-storage.service';
 import { HeaderComponent } from '../components/header/header.component';
 
 @NgModule({
@@ -38,6 +39,7 @@ import { HeaderComponent } from '../components/header/header.component';
   ],
   providers: [
     FirebaseService,
+    SessionStorageService,
     HeaderComponent
   ],
   bootstrap: [AppComponent]

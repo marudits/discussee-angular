@@ -9,6 +9,9 @@ import { AuthComponent } from './auth.component';
 //library
 import { MaterializeModule } from "angular2-materialize";
 
+//utils
+import { AuthGuardService } from '../../utils/service/auth-guard.service';
+
 export const routes = [
 	{
 		path: '',

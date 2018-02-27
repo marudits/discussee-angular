@@ -11,6 +11,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 //utils
 import { getUsernameFromEmail } from '../helpers/stringManipulation';
+import { SessionStorageService } from './session-storage.service';
 
 @Injectable()
 export class FirebaseService {
@@ -19,11 +20,14 @@ export class FirebaseService {
   	constructor(
   		private fireDb: AngularFireDatabase,
   		private fireAuth: AngularFireAuth,
+      private ss: SessionStorageService,
   		private router: Router
   	) {
-      fireAuth.authState.subscribe((user) => {
-        console.log('CURRENT_USER: ', this.CURRENT_USER);
+      this.fireAuth.authState.subscribe((user) => {
         this.CURRENT_USER = user;
+        if(user){
+          this.ss.setData('CURRENT_USER', user);
+        }
       })
     }
 
@@ -42,11 +46,9 @@ export class FirebaseService {
   		});
   	}
 
-    // isAuthenticated(): Observable<boolean>{
-    //   this.fireAuth.authState.subscribe((res) => {
-    //     return res !== null
-    //   })
-    // }
+    isAuthenticated(){
+      return this.ss.getData('CURRENT_USER');
+    }
 
   	isOwnerThread(threadId){
 			this.getThreadItem(threadId)
@@ -77,5 +79,13 @@ export class FirebaseService {
   				return { status: false, data: err}
   			})
   	}
+
+    signOut(){
+      this.fireAuth.auth.signOut()
+        .then(() => {
+          this.ss.clearData();
+          this.router.navigate(['/auth'])
+        })
+    }
 
 }

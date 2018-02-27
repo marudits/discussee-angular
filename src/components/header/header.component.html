@@ -1,13 +1,13 @@
 <div class="navbar-fixed">
     <ul id="dropdown1" class="dropdown-content">
-      <li><a href="/auth">Sign Out</a></li>
+      <li><a href="#" (click)="signOut()">Sign Out</a></li>
     </ul>
     <nav>
       <div class="nav-wrapper">
         <a href="#" class="brand-logo" (click)="goto('/')">
           Discussee
         </a>
-        <ul id="nav-mobile" class="right" >
+        <ul id="nav-mobile" class="right" *ngIf="isAuthenticated()">
           <li>
             <a class="dropdown-button" href="#!" data-activates="dropdown1">
               {{user ? user.email : 'Profile'}}
