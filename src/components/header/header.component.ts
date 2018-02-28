@@ -36,7 +36,6 @@ export class HeaderComponent implements OnInit {
 
 	setUser(user){
 		this.user = user;
-		console.log('setUser: ', this.user);
 	}
 
 	signOut(){
