@@ -8,7 +8,7 @@ export class SessionStorageService {
 
 	clearData(){
 		sessionStorage.clear();
-		this.data = null;
+		this.data = {};
 	}
 
 	getData(key){
