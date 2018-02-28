@@ -1,0 +1,35 @@
+<div class="thread-list">
+	<div class="thread-list__header">
+		<h4>
+			Thread List
+		</h4>
+		<div class="header-status">
+			<span class="new badge red lighten-2" data-badge-caption="Closed">
+				{{threadStatus.CLOSED}}
+			</span>
+			<span class="new badge green lighten-2" data-badge-caption="Opened">
+				{{threadStatus.OPENED}}
+			</span>
+			<span class="new badge grey darken-2" data-badge-caption="All">
+				{{threadStatus.ALL}}
+			</span>
+		</div>
+	</div>
+	<div class="thread-list__content">
+		<div *ngIf="dbComments && dbComments.length > 0" class="row">
+			<div *ngFor="let item of dbComments;" class="thread-list__item col s12 m6 l4">
+				<thread-item [thread]="item"></thread-item>
+			</div>
+		</div>
+		<div *ngIf="!dbComments || dbComments.length === 0" class="row">
+			No Data
+		</div>
+	</div>
+	<div class="thread-list__footer">
+		<div class="fixed-action-btn">
+			<a class="btn-floating btn-large green" (click)="goto('/add')">
+				<i class="large material-icons">add</i>
+			</a>
+	  	</div>
+	</div>
+</div>

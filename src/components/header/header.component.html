@@ -1,0 +1,29 @@
+<div class="navbar-fixed">
+    <ul id="dropdown-md" class="nav-dropdown dropdown-content">
+      <li><a href="#" (click)="signOut()">Sign Out</a></li>
+    </ul>
+    <ul id="dropdown-sm" class="nav-dropdown dropdown-content">
+      <li><a>{{user ? getUsernameFromEmail(user.email) : ''}}</a></li>
+      <li><a href="#" (click)="signOut()">Sign Out</a></li>
+    </ul>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo" (click)="goto('/')">
+          Discussee
+        </a>
+        <ul id="nav-mobile" class="right" *ngIf="isAuthenticated()">
+          <li class="show-on-med-and-up hide-on-small-and-down">
+            <a class="dropdown-button user-email" href="#!" data-activates="dropdown-md">
+              {{user ? user.email : 'Profile'}}
+              <i class="material-icons right">arrow_drop_down</i>
+            </a>
+          </li>
+          <li class="hide-on-med-and-up show-on-small-and-down">
+            <a class="dropdown-button user-icon" href="#!" data-activates="dropdown-sm">
+              <i class="material-icons">account_circle</i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+</div>

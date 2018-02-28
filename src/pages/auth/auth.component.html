@@ -1,0 +1,42 @@
+<div class="auth">
+	<div class="auth-header">
+		<h4>Welcome</h4>
+		<p *ngIf="mode === 'SIGN_IN'">Please sign in to continue</p>
+		<p *ngIf="mode === 'SIGN_UP'">Create account and enjoy the app</p>
+	</div>
+	<div class="auth-content">
+		<form class="auth-form" (submit)="handleSubmit()">
+			<div class="input-field col s6">
+	          <i class="material-icons prefix">email</i>
+	          <input id="auth-email" name="auth-email" type="email" class="validate {{validation.email.status}}" [(ngModel)]="form.email" required>
+	          <label for="auth-email">Email</label>
+	        </div>
+	        <div class="message-error" *ngIf="validation.email.status === 'invalid'">
+	        	{{validation.email.message}}
+	        </div>
+	        <div class="input-field col s6">
+	          <i class="material-icons prefix">lock</i>
+	          <input id="auth-password" name="auth-password" type="password" class="validate {{validation.password.status}}" [(ngModel)]="form.password" required>
+	          <label for="auth-password">Password</label>
+	        </div>
+	        <div class="message-error" *ngIf="validation.password.status === 'invalid'">
+	        	{{validation.password.message}}
+	        </div>
+	        <div class="message-error" *ngIf="validation.submit.status === 'invalid'">
+	        	{{validation.submit.message}}
+	        </div>
+	        <div class="btn-action">
+	        	<a *ngIf="mode === 'SIGN_IN'" class="waves-effect waves-light btn" type="submit" (click)="handleSubmit()">Sign In</a>
+	        	<a *ngIf="mode === 'SIGN_UP'" class="waves-effect waves-light btn" type="submit" (click)="handleSubmit()">Sign Up</a>
+	        </div>
+		</form>
+	</div>
+	<div class="auth-footer">
+		<p *ngIf="mode === 'SIGN_IN'">
+			Don't have account? <a (click)="toggleMode()">Sign Up</a> now
+		</p>
+		<p *ngIf="mode === 'SIGN_UP'">
+			Already have account? <a (click)="toggleMode()">Sign In</a> now
+		</p>
+	</div>
+</div>
