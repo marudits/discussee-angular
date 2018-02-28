@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { Router } from '@angular/router';
 
 //utils
 import { FirebaseService } from '../../utils/service/firebase.service';
+import { SessionStorageService } from '../../utils/service/session-storage.service';
 import { getUsernameFromEmail } from '../../utils/helpers/stringManipulation';
 
 @Component({
@@ -11,7 +12,7 @@ import { getUsernameFromEmail } from '../../utils/helpers/stringManipulation';
   styleUrls: ['./header.component.scss']
 })
 
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, AfterContentChecked {
 	title: String = 'Discussee';
 	user: any;
 
@@ -19,11 +20,16 @@ export class HeaderComponent implements OnInit {
 	
 	constructor(
 		private router: Router,
-		private fs: FirebaseService
+		private fs: FirebaseService,
+		private ss: SessionStorageService
 		) { }
 
 	ngOnInit() {
-		this.user = this.fs.getCurrentUser();
+		this.user = this.ss.getData('CURRENT_USER');
+	}
+
+	ngAfterContentChecked(){
+		this.user = this.ss.getData('CURRENT_USER');
 	}
 
 	isAuthenticated(){

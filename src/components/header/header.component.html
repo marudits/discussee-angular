@@ -3,7 +3,7 @@
       <li><a href="#" (click)="signOut()">Sign Out</a></li>
     </ul>
     <ul id="dropdown-sm" class="nav-dropdown dropdown-content">
-      <li><a>{{getUsernameFromEmail(user.email)}}</a></li>
+      <li><a>{{user ? getUsernameFromEmail(user.email) : ''}}</a></li>
       <li><a href="#" (click)="signOut()">Sign Out</a></li>
     </ul>
     <nav>
