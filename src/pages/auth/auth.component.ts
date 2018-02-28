@@ -54,6 +54,8 @@ export class AuthComponent implements OnInit {
 				this.fs.signIn(this.form.email, this.form.password)
 					.then(res => {
 						if(res.status){
+							this.ss.clearData();
+							this.ss.setData('CURRENT_USER', res.data)
 							this.headerComp.setUser(res.data);
 							this.resetForm();
 							this.router.navigate(['/']);
@@ -66,6 +68,8 @@ export class AuthComponent implements OnInit {
 				this.fs.signUp(this.form.email, this.form.password)
 					.then(res => {
 						if(res.status){
+							this.ss.clearData();
+							this.ss.setData('CURRENT_USER', res.data)
 							this.headerComp.setUser(res.data);
 							this.resetForm();
 							this.router.navigate(['/']);
