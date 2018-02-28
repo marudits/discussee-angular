@@ -57,6 +57,7 @@ export class ThreadDetailComponent implements OnInit {
   			return actions ? actions.map(action => ({ key: action.key, ...action.payload.val() })) : [];
   		}).subscribe(items => {
   			this.commentList = items;
+        this.scrollComment();
   		});
   	}
 
@@ -120,10 +121,12 @@ export class ThreadDetailComponent implements OnInit {
   		this.db.list('comments/' + this.threadId).push({
   			name: getUsernameFromEmail(CURRENT_USER.email),
   			text: this.form.text,
-  			createdAt: Date.now()
+  			timestamp: Date.now()
   		});
 
       this.resetForm();
+      this.stoppedTyping(this.thread.key);
+      this.scrollComment();
   	}
 
     isOwnComment(name){
@@ -135,7 +138,10 @@ export class ThreadDetailComponent implements OnInit {
     }
 
     scrollComment(){
-
+      let commentList = document.getElementById('comment-list');
+      if(commentList){
+        commentList.scrollTop = commentList.scrollHeight + 1000;
+      }
     }
 
 }
