@@ -1,0 +1,63 @@
+<section class="thread-detail">
+	<header>
+		<h4>Thread Detail</h4>
+	</header>
+	<content>
+		<div *ngIf="thread">
+			<header class="detail-header">
+				<p>Created by <b>{{thread.createdBy}}</b> at <em>{{calculateDiffTime(thread.createdAt)}}</em></p>
+				<p>Last updated at <em>{{calculateDiffTime(thread.updatedAt)}}</em></p>
+				<h5>{{thread.title}}</h5>
+			</header>
+			<content class="detail-content">
+				<p>{{thread.desc}}</p>
+			</content>
+			<footer class="comment">
+				<div *ngIf="commentList && commentList.length > 0">
+					<h6><b>{{commentList.length}}</b> Comments</h6>
+					<div id="comment-list" class="comment-list">
+						<div *ngFor="let item of commentList" class="comment-item">
+							<div class="comment-item__{{isOwnComment(item.name) ? 'own' : 'other'}}">
+								<i class="material-icons left" *ngIf="!isOwnComment(item.name)">account_circle</i>
+								<div class="item-content">
+									<p class="item-content__name">{{item.name}}</p>
+									<p class="item-content__text">{{item.text}}</p>
+									<p class="item-content__date">{{calculateDiffTime(item.timestamp)}}</p>	
+								</div>
+							</div>
+						</div>
+						<div>
+							{{isTypingInfo}}
+						</div>
+					</div>
+					
+				</div>
+				<div *ngIf="commentList && commentList.length === 0">
+					<h6>No Comment</h6>
+				</div>
+				<div *ngIf="thread.isDone">
+					Creator has closed this thread
+				</div>
+				<div *ngIf="!thread.isDone" class="comment-form">
+					<form class="row col s12 m6">
+						<div class="input-field col s12">
+							<textarea id="comment-text" name="comment-text" class="materialize-textarea" [(ngModel)]="form.text" (keypress)="handleChange($event)" (blur)="stoppedTyping(thread.key)"></textarea>
+							<label for="comment-text">Comment</label>
+						</div>
+						<button class="waves-effect waves-light btn" (click)="addComment()">
+							<i class="material-icons left">cloud</i>
+							Comment
+						</button>
+					</form>
+				</div>
+			</footer>
+		</div>
+	</content>
+	<footer>
+		
+	</footer>
+</section>
+
+<script type="text/javascript">
+	$('#comment-text').trigger('autoresize');
+</script>
