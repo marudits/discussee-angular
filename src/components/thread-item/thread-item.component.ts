@@ -38,8 +38,10 @@ export class ThreadItemComponent implements OnInit {
 	}
 
 	deleteThread(threadId){
+		const THREAD_TITLE = this.thread.title;
 		this.db.object('todos/' + threadId)
   			.remove();
+  		window.alert('Thread ' + THREAD_TITLE + ' is successfully deleted');
 	}
 
 	getCommentList(id){
