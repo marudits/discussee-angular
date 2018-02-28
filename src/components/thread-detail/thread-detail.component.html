@@ -1,25 +1,34 @@
-<section>
+<section class="thread-detail">
 	<header>
-		<h5>Thread {{thread ? thread.key : ''}}</h5>
+		<h4>Thread Detail</h4>
 	</header>
 	<content>
 		<div *ngIf="thread">
-			<header>
-				<p>Created by {{thread.createdBy}} at {{thread.createdAt}}</p>
-				<p>Last updated at {{thread.updatedAt}}</p>
+			<header class="detail-header">
+				<p>Created by <b>{{thread.createdBy}}</b> at <em>{{calculateDiffTime(thread.createdAt)}}</em></p>
+				<p>Last updated at <em>{{calculateDiffTime(thread.updatedAt)}}</em></p>
 				<h5>{{thread.title}}</h5>
 			</header>
-			<content>
-				{{thread.desc}}
+			<content class="detail-content">
+				<p>{{thread.desc}}</p>
 			</content>
 			<footer class="comment">
 				<div *ngIf="commentList && commentList.length > 0">
-					<h6>{{commentList.length}} Comments</h6>
-					<div class="comment-list">
-						<div *ngFor="let item of commentList">
-							<p>{{item.name}}</p>
-							<p>{{item.text}}</p>
-						</div>	
+					<h6><b>{{commentList.length}}</b> Comments</h6>
+					<div id="comment-list" class="comment-list">
+						<div *ngFor="let item of commentList" class="comment-item">
+							<div class="comment-item__{{isOwnComment(item.name) ? 'own' : 'other'}}">
+								<i class="material-icons left" *ngIf="!isOwnComment(item.name)">account_circle</i>
+								<div class="item-content">
+									<p class="item-content__name">{{item.name}}</p>
+									<p class="item-content__text">{{item.text}}</p>
+									<p class="item-content__date">{{calculateDiffTime(item.timestamp)}}</p>	
+								</div>
+							</div>
+						</div>
+						<div>
+							{{isTypingInfo}}
+						</div>
 					</div>
 					
 				</div>
@@ -32,7 +41,7 @@
 				<div *ngIf="!thread.isDone" class="comment-form">
 					<form class="row col s12 m6">
 						<div class="input-field col s12">
-							<textarea id="comment-text" name="comment-text"class="materialize-textarea" [(ngModel)]="form.text"></textarea>
+							<textarea id="comment-text" name="comment-text" class="materialize-textarea" [(ngModel)]="form.text" (keypress)="handleChange($event)" (blur)="stoppedTyping(thread.key)"></textarea>
 							<label for="comment-text">Comment</label>
 						</div>
 						<button class="waves-effect waves-light btn" (click)="addComment()">

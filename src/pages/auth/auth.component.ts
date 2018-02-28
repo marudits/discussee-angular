@@ -6,6 +6,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 
 //utils
 import { FirebaseService } from '../../utils/service/firebase.service';
+import { SessionStorageService } from '../../utils/service/session-storage.service';
 
 @Component({
   selector: 'app-auth',
@@ -36,22 +37,25 @@ export class AuthComponent implements OnInit {
 
 	constructor(
 		private fs: FirebaseService,
+		private ss: SessionStorageService,
 		private router: Router,
 		private headerComp: HeaderComponent
 		) { }
 
 	ngOnInit() {
-
+		if(this.fs.isAuthenticated()){
+			this.router.navigate(['/'])
+		}
 	}
 
 	handleSubmit(){
-		// e.preventDefault();
-		console.log('handleSubmit');
 		switch (this.mode) {
 			case "SIGN_IN":
 				this.fs.signIn(this.form.email, this.form.password)
 					.then(res => {
 						if(res.status){
+							this.ss.clearData();
+							this.ss.setData('CURRENT_USER', res.data)
 							this.headerComp.setUser(res.data);
 							this.resetForm();
 							this.router.navigate(['/']);
@@ -64,6 +68,8 @@ export class AuthComponent implements OnInit {
 				this.fs.signUp(this.form.email, this.form.password)
 					.then(res => {
 						if(res.status){
+							this.ss.clearData();
+							this.ss.setData('CURRENT_USER', res.data)
 							this.headerComp.setUser(res.data);
 							this.resetForm();
 							this.router.navigate(['/']);

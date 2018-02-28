@@ -1,8 +1,19 @@
 <div class="thread-list">
 	<div class="thread-list__header">
-		<h3>
+		<h4>
 			Thread List
-		</h3>
+		</h4>
+		<div class="header-status">
+			<span class="new badge red lighten-2" data-badge-caption="Closed">
+				{{threadStatus.CLOSED}}
+			</span>
+			<span class="new badge green lighten-2" data-badge-caption="Opened">
+				{{threadStatus.OPENED}}
+			</span>
+			<span class="new badge grey darken-2" data-badge-caption="All">
+				{{threadStatus.ALL}}
+			</span>
+		</div>
 	</div>
 	<div class="thread-list__content">
 		<div *ngIf="dbComments && dbComments.length > 0" class="row">

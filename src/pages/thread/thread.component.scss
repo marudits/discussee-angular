@@ -1,4 +1,17 @@
 .thread-list {
+  &__header {
+    .header {
+      &-status {
+        display: inline-block;
+
+        span {
+          margin-left: 0px;
+          margin-right: 9px;
+        }
+      }
+    }
+  }
+
   &__item {
     padding: 12px;
   }

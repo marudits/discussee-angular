@@ -1,27 +1,51 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { Router } from '@angular/router';
+
+//utils
+import { FirebaseService } from '../../utils/service/firebase.service';
+import { SessionStorageService } from '../../utils/service/session-storage.service';
+import { getUsernameFromEmail } from '../../utils/helpers/stringManipulation';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, AfterContentChecked {
 	title: String = 'Discussee';
-	user: any = null;
+	user: any;
 
+	getUsernameFromEmail = getUsernameFromEmail;
+	
 	constructor(
-		private router: Router) { }
+		private router: Router,
+		private fs: FirebaseService,
+		private ss: SessionStorageService
+		) { }
 
 	ngOnInit() {
+		this.user = this.ss.getData('CURRENT_USER');
+	}
 
+	ngAfterContentChecked(){
+		this.user = this.ss.getData('CURRENT_USER');
+	}
+
+	isAuthenticated(){
+		return this.fs.isAuthenticated();
+	}
+
+	goto(url){
+		this.router.navigate([url])
 	}
 
 	setUser(user){
-		console.log('this.user: ', this.user, '| user: ', user, '| email: ', user.email);
 		this.user = user;
-		console.log('new: ', this.user);
+	}
+
+	signOut(){
+		this.fs.signOut();
 	}
 
 }

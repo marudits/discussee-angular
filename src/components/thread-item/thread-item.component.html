@@ -4,7 +4,7 @@
 			<h5 (click)="goto('/detail/' + thread.key)">{{thread.title}}</h5>
 			<div class="switch">
 				<label>
-					<input disabled="{{thread.isDone ? 'disabled' : ''}}" type="checkbox">
+					<input type="checkbox" (change)="toggleStatus()" checked="{{thread.isDone ? null : 'checked'}}" disabled="{{isOwnThread() ? null : 'disabled'}}">
 			      	<span class="lever"></span>
 			      	{{thread.isDone ? 'Closed' : 'Opened'}}
 			    </label>
@@ -16,14 +16,14 @@
 		<div class="thread-item__footer">
 			Created by <b>{{thread.createdBy}}</b> at <em>{{calculateDiffTime(thread.createdAt)}}</em>
 		</div>
-		<a class="btn-floating btn-edit halfway-fab waves-effect waves-light yellow" (click)="goto('/update/' + thread.key)">
+		<a class="btn-floating btn-edit halfway-fab waves-effect waves-light yellow" (click)="goto('/update/' + thread.key)" *ngIf="isOwnThread()">
 			<i class="material-icons">edit</i>
 		</a>
-		<a class="btn-floating btn-delete halfway-fab waves-effect waves-light red" (click)="deleteThread(thread.key)">
+		<a class="btn-floating btn-delete halfway-fab waves-effect waves-light red" (click)="deleteThread(thread.key)" *ngIf="isOwnThread()">
 			<i class="material-icons">delete</i>
 		</a>
 	</div>
 	<div class="card-content">
-		<b>10</b> Comments
+		<b>{{commentList.length}}</b> Comments
 	</div>
 </div>

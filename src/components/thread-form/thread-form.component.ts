@@ -9,6 +9,10 @@ import { LABEL } from '../../assets/label';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 
+//utils
+import { getUsernameFromEmail } from '../../utils/helpers/stringManipulation';
+import { SessionStorageService } from '../../utils/service/session-storage.service';
+
 @Component({
   selector: 'app-thread-form',
   templateUrl: './thread-form.component.html',
@@ -40,7 +44,8 @@ export class ThreadFormComponent implements OnInit {
 		private db: AngularFireDatabase,
 		private auth: AngularFireAuth,
 		private activatedRoute: ActivatedRoute,
-		private router: Router
+		private router: Router,
+    private ss: SessionStorageService
   	) { }
 
   ngOnInit() {
@@ -51,7 +56,7 @@ export class ThreadFormComponent implements OnInit {
   }
 
   addThread(){
-  	const CURRENT_USER = 'marudits';
+  	const CURRENT_USER = getUsernameFromEmail(this.ss.getData('CURRENT_USER').email);
 
   	this.db.list('todos/').push({
       title: this.form.title,
@@ -111,14 +116,15 @@ export class ThreadFormComponent implements OnInit {
   }
 
   updateThread(){
-  	const CURRENT_USER = 'marudits';
+  	const CURRENT_USERNAME = getUsernameFromEmail(this.ss.getData('CURRENT_USER').email);
+    
   	this.db.object('todos/' + this.thread.key)
   		.update(Object.assign(
   			{}, 
   			this.thread, 
   			{ title: this.form.title },
   			{ desc: this.form.desc },
-  			{ updatedBy: CURRENT_USER }, 
+  			{ updatedBy: CURRENT_USERNAME }, 
   			{ updatedAt: Date.now() }
   		));
 
