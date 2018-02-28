@@ -6,7 +6,8 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 //utils
-import { calculateDiffTime } from '../../utils/helpers/stringManipulation';
+import { calculateDiffTime, getUsernameFromEmail } from '../../utils/helpers/stringManipulation';
+import { SessionStorageService } from '../../utils/service/session-storage.service';
 
 @Component({
   selector: 'thread-item',
@@ -24,7 +25,8 @@ export class ThreadItemComponent implements OnInit {
 	constructor(
 		private router: Router,
 		private db: AngularFireDatabase,
-		private auth: AngularFireAuth
+		private auth: AngularFireAuth,
+		private ss: SessionStorageService
 		) { }
 
 	ngOnInit() {
@@ -45,6 +47,14 @@ export class ThreadItemComponent implements OnInit {
 			return actions ? actions.map(action => ({ key: action.key, ...action.payload.val() })) : [];
 		}).subscribe(items => {
 			this.commentList = items;
+		});
+	}
+
+	toggleStatus(){
+		this.db.object('todos/' + this.thread.key).update({
+			isDone: !this.thread.isDone,
+			udpatedAt: Date.now(),
+			updatedBy: getUsernameFromEmail(this.ss.getData('CURRENT_USER').email)
 		});
 	}
 
