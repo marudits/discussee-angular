@@ -5,7 +5,7 @@
 		<p *ngIf="mode === 'SIGN_UP'">Create account and enjoy the app</p>
 	</div>
 	<div class="auth-content">
-		<form class="auth-form" (submit)="handleSubmit()">
+		<form class="auth-form" (keyup.enter)="handleSubmit()">
 			<div class="input-field col s6">
 	          <i class="material-icons prefix">email</i>
 	          <input id="auth-email" name="auth-email" type="email" class="validate {{validation.email.status}}" [(ngModel)]="form.email" required>
