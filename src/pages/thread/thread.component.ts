@@ -14,6 +14,11 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class ThreadComponent implements OnInit {
 	
 	dbComments;
+  threadStatus = {
+    ALL: 0,
+    OPENED: 0,
+    CLOSED: 0
+  }
 
 	constructor(
 		private db: AngularFireDatabase,
@@ -26,6 +31,11 @@ export class ThreadComponent implements OnInit {
   			return actions.map(action => ({ key: action.key, ...action.payload.val() }));
   		}).subscribe(items => {
   			this.dbComments = items;
+        this.threadStatus = {
+          ALL: items.length,
+          OPENED: items.filter(x => !x.isDone).length,
+          CLOSED: items.filter(x => x.isDone).length
+        }
   		});
   	}
 
