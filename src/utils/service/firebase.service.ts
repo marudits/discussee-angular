@@ -47,7 +47,7 @@ export class FirebaseService {
   	}
 
     isAuthenticated(){
-      return this.ss.getData('CURRENT_USER');
+      return typeof this.ss.getData('CURRENT_USER') !== 'undefined';
     }
 
     isTypingComment(id, text){
