@@ -15,9 +15,10 @@ import { calculateDiffTime } from '../../utils/helpers/stringManipulation';
 })
 export class ThreadItemComponent implements OnInit {
 
-	@Input() thread: Object;
+	@Input() thread;
 	@Input() key: String;
 
+	commentList = [];
 	calculateDiffTime = calculateDiffTime;
 
 	constructor(
@@ -27,6 +28,7 @@ export class ThreadItemComponent implements OnInit {
 		) { }
 
 	ngOnInit() {
+		this.getCommentList(this.thread.key)
 	}
 
 	goto(url){
@@ -36,6 +38,14 @@ export class ThreadItemComponent implements OnInit {
 	deleteThread(threadId){
 		this.db.object('todos/' + threadId)
   			.remove();
+	}
+
+	getCommentList(id){
+		this.db.list('comments/' + id).snapshotChanges().map(actions => {
+			return actions ? actions.map(action => ({ key: action.key, ...action.payload.val() })) : [];
+		}).subscribe(items => {
+			this.commentList = items;
+		});
 	}
 
 }
