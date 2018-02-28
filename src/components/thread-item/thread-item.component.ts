@@ -50,6 +50,11 @@ export class ThreadItemComponent implements OnInit {
 		});
 	}
 
+	isOwnThread(){
+		let CURRENT_USERNAME = getUsernameFromEmail(this.ss.getData('CURRENT_USER').email);
+		return CURRENT_USERNAME === this.thread.createdBy
+	}
+
 	toggleStatus(){
 		this.db.object('todos/' + this.thread.key).update({
 			isDone: !this.thread.isDone,
